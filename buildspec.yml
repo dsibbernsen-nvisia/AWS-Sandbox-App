@@ -1,10 +1,11 @@
 version: 0.2
 
 phases:
-  #
-  # install:
-    # runtime-versions:
-      # docker: 18
+
+  install:
+    runtime-versions:
+      nodejs: 12
+    npm install
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
