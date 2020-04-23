@@ -7,22 +7,22 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - COMMIT_TAG=${COMMIT_HASH:=latest}
-      - if [ "$COMMIT_TAG" != "latest" ]; then COMMIT_TAG="sha-$COMMIT_TAG"; fi
+      # - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      # - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      # - COMMIT_TAG=${COMMIT_HASH:=latest}
+      # - if [ "$COMMIT_TAG" != "latest" ]; then COMMIT_TAG="sha-$COMMIT_TAG"; fi
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - docker build -t $IMAGE_REPO_URL:$IMAGE_TAG .
-      - docker tag $IMAGE_REPO_URL:$IMAGE_TAG $IMAGE_REPO_URL:$COMMIT_TAG
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - docker push $IMAGE_REPO_URL:$IMAGE_TAG
-      - docker push $IMAGE_REPO_URL:$COMMIT_TAG
-artifacts:
-  files:
-    - 'k8s/**/*'
+      # - docker build -t $IMAGE_REPO_URL:$IMAGE_TAG .
+      # - docker tag $IMAGE_REPO_URL:$IMAGE_TAG $IMAGE_REPO_URL:$COMMIT_TAG
+  # post_build:
+  #   commands:
+  #     - echo Build completed on `date`
+  #     - echo Pushing the Docker image...
+  #     - docker push $IMAGE_REPO_URL:$IMAGE_TAG
+  #     - docker push $IMAGE_REPO_URL:$COMMIT_TAG
+# artifacts:
+  # files:
+    # - 'k8s/**/*'
